@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Front-end build files ###
+/front-end/node_modules
+/front-end/static
+
+### env file ###
+*.env
