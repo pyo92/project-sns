@@ -1,1 +1,39 @@
+spring:
+  profiles:
+    active: local
+    group:
+      local:
+        - common
+      heroku:
+        - common
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: common
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sns
+    username: ${LOCAL_DATASOURCE_USERNAME}
+    password: ${LOCAL_DATASOURCE_PASSWORD}
 
