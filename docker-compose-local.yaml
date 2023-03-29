@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  project-sns-database:
+    container_name: project-sns-database
+    build:
+      dockerfile: Dockerfile
+      context: ./database
+    image: pyo92/project-sns-database
+    environment:
+      - MYSQL_DATABASE=sns
+      - MYSQL_ROOT_PASSWORD=${LOCAL_DATASOURCE_PASSWORD}
+    ports:
+      - "3306:3306"
