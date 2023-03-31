@@ -18,6 +18,12 @@ spring:
       hibernate:
         default_batch_fetch_size: 100
 
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
+  expired:
+    time: 604800000 #7 days
+
 ---
 
 spring:
