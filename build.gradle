@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.5'
     id 'io.spring.dependency-management' version '1.1.0'
-    id "com.github.node-gradle.node" version "3.5.1"
 }
 
 group = 'com.example'
@@ -23,41 +22,23 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    //testcontainers
+    testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
+    testImplementation 'org.testcontainers:mysql:1.17.6'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-node {
-    nodeModulesDir = file("$projectDir/front-end")
-    version = '18.3.0'
-    download = true
-}
-
-task npmBuild(type: NpmTask) {
-    args = ['run', "build"]
-}
-
-task copyFrontEnd(type: Copy) {
-    from "$projectDir/front-end/static"
-    into 'build/resources/main/static/.'
-}
-
-task cleanFrontEnd(type: Delete) {
-    delete "$projectDir/front-end/static", "$projectDir/front-end/node_modules"
-}
-
-npmBuild.dependsOn npmInstall
-copyFrontEnd.dependsOn npmBuild
-compileJava.dependsOn copyFrontEnd
-
-clean.dependsOn cleanFrontEnd
