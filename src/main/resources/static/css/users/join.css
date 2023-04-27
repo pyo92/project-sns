@@ -1,0 +1,53 @@
+body {
+    background: #eeeeee;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+#logo {
+    width: 500px;
+}
+
+.container {
+    width: 400px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    background: white;
+}
+
+form {
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.form-floating {
+    width: 100%;
+    margin: 5px 0;
+}
+
+button {
+    width: 60%;
+    margin: 10px 0;
+}
+
+button:hover {
+    transform: scale(105%);
+}
+
+a {
+    margin: 5px 0;
+    color: dodgerblue;
+    text-decoration: none;
+}
+
+.server-error {
+    text-align: center;
+}
