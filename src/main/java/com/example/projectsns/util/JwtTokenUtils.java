@@ -11,19 +11,34 @@ import java.util.Date;
 
 public class JwtTokenUtils {
 
-    public static String generateToken(String memberId, String key, long expiredTimeMs) {
+    public static String getEmail(String token, String jwtSecretKey) {
+        return extractClaims(token, jwtSecretKey).get("email", String.class);
+    }
+
+    public static boolean isExpired(String token, String jwtSecretKey) {
+        return ((Date) extractClaims(token, jwtSecretKey).getExpiration()).before(new Date());
+    }
+
+    private static Claims extractClaims(String token, String jwtSecretKey) {
+        return Jwts.parserBuilder().setSigningKey(getKey(jwtSecretKey))
+                .build()
+                .parseClaimsJws(token) //jws 임에 유의
+                .getBody();
+    }
+
+    public static String generateToken(String userName, String jwtSecretKey, long expiredTimeMs) {
         Claims claims = Jwts.claims();
-        claims.put("memberId", memberId);
+        claims.put("email", userName);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiredTimeMs))
-                .signWith(getKey(key), SignatureAlgorithm.HS256)
+                .signWith(getKey(jwtSecretKey), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    private static Key getKey(String key) {
-        return Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8));
+    private static Key getKey(String jwtSecretKey) {
+        return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 }

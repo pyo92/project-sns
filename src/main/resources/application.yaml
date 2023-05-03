@@ -22,7 +22,7 @@ jwt:
   secret:
     key: ${JWT_SECRET_KEY}
   expired:
-    time: 604800000 #7 days
+    time: 3600000 #1 hour
 
 ---
 
