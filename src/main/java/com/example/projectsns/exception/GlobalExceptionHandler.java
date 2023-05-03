@@ -51,6 +51,9 @@ public class GlobalExceptionHandler {
         sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
         mav.addObject(sb.toString(), e.getRequestDto()); //request dto 를 모델에 바인딩
 
+        //해당 예외의 http status code 세팅
+        mav.setStatus(e.getCustomErrorCode().getStatus());
+
         return mav;
     }
 }

@@ -15,7 +15,7 @@ public class CustomException extends RuntimeException {
 
     private CustomErrorCode customErrorCode;
     private String message;
-    private Object requestDto; //오류 발생 시, 입력값을 그대로 바인딩 하기 위한 dto
+    private Object requestDto; //입력 form 에서 오류 발생 시, 입력값을 그대로 바인딩 하기 위한 dto
 
     public static CustomException of(CustomErrorCode customErrorCode, Object requestDto) {
         return new CustomException(customErrorCode, customErrorCode.getMessage(), requestDto);
