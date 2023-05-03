@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<thlogic>
+    <attr sel="#join-success-alert" th:if="${joinSuccess}"/>
+
+    <attr sel="#jwt-expired-alert" th:if="${jwtExpired}"/>
+
+    <attr sel="#login-danger-alert" th:if="${errors}">
+        <attr sel="span"
+              th:each="error : ${errors}"
+              th:text="${'&#9940;&nbsp;' + error.getDefaultMessage()}"/>
+    </attr>
+
+    <attr sel="#login-form" th:object="${loginRequest}">
+        <attr sel="#email" th:field="${loginRequest.email}"/>
+        <attr sel="#password" th:value="${loginRequest.password}"/>
+    </attr>
+</thlogic>
