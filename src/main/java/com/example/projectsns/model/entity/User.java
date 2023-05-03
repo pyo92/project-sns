@@ -1,13 +1,11 @@
 package com.example.projectsns.model.entity;
 
+import com.example.projectsns.dto.UserDto;
 import com.example.projectsns.dto.request.JoinRequest;
 import com.example.projectsns.model.AuditingFields;
 import com.example.projectsns.model.type.UserRole;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -36,6 +34,8 @@ public class User extends AuditingFields {
     @Column(nullable = false)
     private UserRole role;
 
+    @ToString.Exclude
+    @OrderBy(value = "createdAt ASC")
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
@@ -43,8 +43,16 @@ public class User extends AuditingFields {
         return new User(email, password, nickname, role, posts);
     }
 
-    public static User from(JoinRequest request) {
-        return User.of(request.email(), request.password(), request.nickname(), UserRole.ROLE_USER, List.of());
+    public static User of(String email) {
+        return User.of(email, null, null, null, null);
+    }
+
+    public static User from(JoinRequest dto) {
+        return User.of(dto.email(), dto.password(), dto.nickname(), UserRole.ROLE_USER, List.of());
+    }
+
+    public static User from(UserDto dto) {
+        return User.of(dto.email());
     }
 
     @Override
