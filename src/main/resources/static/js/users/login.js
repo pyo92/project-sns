@@ -2,27 +2,22 @@ window.addEventListener('load', function () {
     const emailInput = document.getElementById('email');
     validateEmail();
     validatePassword();
-    validateNickname();
     emailInput.focus();
 });
 
 ///////////////////////////////////
 
-const submitButton = document.getElementById('join-btn');
+const submitButton = document.getElementById('login-btn');
 
 submitButton.addEventListener('click', function (e) {
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
-    const nickname = nicknameInput.value.trim();
     if (email === '' || !emailRegex.test(email)) {
         e.preventDefault();
         validateEmail();
     } else if (password === '' || !passwordRegex.test(password)) {
         e.preventDefault();
         validatePassword();
-    } else if (nickname === '' || !nicknameRegex.test(nickname)) {
-        e.preventDefault();
-        validateNickname();
     }
 });
 
@@ -88,40 +83,6 @@ function validatePassword() {
         passwordInput.focus();
     } else {
         clearError(passwordInput, passwordErrorMessage);
-    }
-}
-
-///////////////////////////////////
-
-const nicknameInput = document.getElementById('nickname');
-const nicknameErrorMessage = document.getElementById('nickname-error');
-const nicknameRegex = /^[a-zA-Z0-9_.]{5,20}$/;
-
-nicknameInput.addEventListener('focusin', function (e) {
-    validateNickname();
-});
-
-nicknameInput.addEventListener('blur', function (e) {
-    validateNickname();
-});
-
-nicknameInput.addEventListener('input', function (e) {
-    validateNickname();
-});
-
-function validateNickname() {
-    const nickname = nicknameInput.value.trim();
-    if (nickname === '') {
-        setError(nicknameInput, nicknameErrorMessage, '닉네임은 필수 입력 항목입니다.');
-        nicknameInput.focus();
-    } else if (nickname.length < 5 || nickname.length > 20) {
-        setError(nicknameInput, nicknameErrorMessage, '닉네임은 5자 이상, 20자 이하여야 합니다.');
-        nicknameInput.focus();
-    } else if (!nicknameRegex.test(nickname)) {
-        setError(nicknameInput, nicknameErrorMessage, '닉네임은 영문, 숫자, 특수문자 \'_\' 와 \'.\' 만 사용 가능합니다.');
-        nicknameInput.focus();
-    } else {
-        clearError(nicknameInput, nicknameErrorMessage);
     }
 }
 

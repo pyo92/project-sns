@@ -3,23 +3,12 @@
     <attr sel="#join-danger-alert" th:if="${errors}">
         <attr sel="span"
               th:each="error : ${errors}"
-              th:text="${' ' + error.getDefaultMessage()}"/>
+              th:text="${'&#9940;&nbsp;' + error.getDefaultMessage()}"/>
     </attr>
 
     <attr sel="#join-form" th:object="${joinRequest}">
-        <attr sel="#email"
-              th:field="${joinRequest.email}"
-              th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : (#strings.isEmpty(joinRequest.email) ? '' : 'is-valid')}"/>
-        <attr sel="#email-error-by-server" th:errors="${joinRequest.email}"/>
-
-        <attr sel="#password"
-              th:value="${joinRequest.password}"
-              th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : (#strings.isEmpty(joinRequest.password) ? '' : 'is-valid')}"/>
-        <attr sel="#password-error-by-server" th:errors="${joinRequest.password}"/>
-
-        <attr sel="#nickname"
-              th:field="${joinRequest.nickname}"
-              th:classappend="${#fields.hasErrors('nickname') ? 'is-invalid' : (#strings.isEmpty(joinRequest.nickname) ? '' : 'is-valid')}"/>
-        <attr sel="#nickname-error-by-server" th:errors="${joinRequest.nickname}"/>
+        <attr sel="#email" th:field="${joinRequest.email}"/>
+        <attr sel="#password" th:value="${joinRequest.password}"/>
+        <attr sel="#nickname" th:field="${joinRequest.nickname}"/>
     </attr>
 </thlogic>
